@@ -2,7 +2,7 @@ import { Body, Controller, Get, Param, Post } from "@nestjs/common";
 import { BooksService } from "./books.service";
 import { CreateBookDto } from "./dto/create-book.dto";
 
-@Controller("roles")
+@Controller("books")
 export class BooksController  {
   constructor(private roleService: BooksService) {
   }

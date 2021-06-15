@@ -1,7 +1,6 @@
 import { BelongsTo, BelongsToMany, Column, DataType, HasMany, Model, Table } from "sequelize-typescript";
 import { ApiProperty } from "@nestjs/swagger";
 import { User } from "../users/users.model";
-import { UserBooks } from "./user-books.model";
 
 //Generic, to create object of class
 interface BooksCreationAttrs {
@@ -10,7 +9,7 @@ interface BooksCreationAttrs {
 }
 
 //Schema Description
-@Table({ tableName: "roles" })
+@Table({ tableName: "books" })
 export class Book extends Model<Book, BooksCreationAttrs> {
   //Describe all params
   @ApiProperty({ example: "1", description: "Уникальный идентификатор" })
@@ -30,6 +29,6 @@ export class Book extends Model<Book, BooksCreationAttrs> {
   is_active: boolean;
 
   @BelongsTo(() => User)
-  users: User;
+  user: User;
 
 }

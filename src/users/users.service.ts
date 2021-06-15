@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
 import { User } from "./users.model";
 import { CreateUserDto } from "./dto/create-user.dto";
-import { BooksService } from "../roles/books.service";
+import { BooksService } from "../books/books.service";
 import { EditUserDto } from "./dto/edit-user.dto";
 import { RemoveUserDto } from "./dto/remove-user.dto";
 import { AddBookDto } from "./dto/add-book.dto";

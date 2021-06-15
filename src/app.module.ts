@@ -3,9 +3,8 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { UsersModule } from './users/users.module';
 import { ConfigModule } from "@nestjs/config";
 import { User } from "./users/users.model";
-import { BooksModule } from './roles/books.module';
-import { Book } from "./roles/books.model";
-import { UserBooks } from "./roles/user-books.model";
+import { BooksModule } from './books/books.module';
+import { Book } from "./books/books.model";
 
 @Module({
   controllers: [],
@@ -21,7 +20,7 @@ import { UserBooks } from "./roles/user-books.model";
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRESS_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [User, Book, UserBooks],
+      models: [User, Book],
       autoLoadModels : true
     }),
     UsersModule,

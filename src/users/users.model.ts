@@ -1,7 +1,6 @@
-import { BelongsToMany, Column, DataType, HasMany, Model, Table } from "sequelize-typescript";
+import { BelongsTo, BelongsToMany, Column, DataType, HasMany, Model, Table } from "sequelize-typescript";
 import { ApiProperty } from "@nestjs/swagger";
-import { Book } from "../roles/books.model";
-import { UserBooks } from "../roles/user-books.model";
+import { Book } from "../books/books.model";
 
 //Generic, to create object of class
 interface UserCreationAttrs {
