@@ -1,4 +1,4 @@
-import { BelongsTo, BelongsToMany, Column, DataType, HasMany, Model, Table } from "sequelize-typescript";
+import { BelongsTo, BelongsToMany, Column, DataType, ForeignKey, HasMany, Model, Table } from "sequelize-typescript";
 import { ApiProperty } from "@nestjs/swagger";
 import { User } from "../users/users.model";
 
@@ -30,5 +30,9 @@ export class Book extends Model<Book, BooksCreationAttrs> {
 
   @BelongsTo(() => User)
   user: User;
+
+  @Column({ type: DataType.INTEGER})
+  @ForeignKey(()=>User)
+  userId : number;
 
 }
