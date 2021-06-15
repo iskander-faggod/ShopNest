@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
 import { User } from "./users.model";
 import { CreateUserDto } from "./dto/create-user.dto";
@@ -6,6 +6,7 @@ import { BooksService } from "../roles/books.service";
 import { EditUserDto } from "./dto/edit-user.dto";
 import { RemoveUserDto } from "./dto/remove-user.dto";
 import { AddBookDto } from "./dto/add-book.dto";
+import { ReturnBookDto } from "./dto/return-book.dto";
 
 
 @Injectable()
@@ -40,15 +41,20 @@ export class UsersService {
     const user = await this.userRepository.findByPk(dto.userId);
     const book = await this.bookService.getBookByValue(dto.author, dto.title);
     if (user && book) {
-      await user.$add("book", book.id);
+      await user.$add("books", book);
       return dto;
     }
-    // throw new Ht
+    throw new HttpException('Пользователь или роль не найдены', HttpStatus.NOT_FOUND);
   }
 
 
-  async returnBook(author: string, title: string) {
-    const book = await this.bookService.getBookByValue(author, title);
+  async returnBook(dto: ReturnBookDto) {
+    const book = await this.bookService.getBookByValue(dto.author, dto.title);
+    const user = await this.userRepository.findByPk(dto.userId)
+    if (book && user){
+      // this.userRepository.find()
+    }
+
   }
 
 }
