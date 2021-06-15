@@ -1,17 +1,17 @@
 import { BelongsToMany, Column, DataType, Model, Table } from "sequelize-typescript";
 import { ApiProperty } from "@nestjs/swagger";
 import { User } from "../users/users.model";
-import { UserRoles } from "./user-roles.model";
+import { UserBooks } from "./user-books.model";
 
 //Generic, to create object of class
-interface RoleCreationAttrs {
+interface BooksCreationAttrs {
    title: string;
    author: string;
 }
 
 //Schema Description
 @Table({ tableName: "roles" })
-export class Role extends Model<Role, RoleCreationAttrs> {
+export class Book extends Model<Book, BooksCreationAttrs> {
   //Describe all params
   @ApiProperty({example: '1', description: 'Уникальный идентификатор'})
   @Column({ type: DataType.INTEGER, unique: true, autoIncrement: true, primaryKey: true })
@@ -29,7 +29,7 @@ export class Role extends Model<Role, RoleCreationAttrs> {
   @Column({ type: DataType.BOOLEAN, allowNull: false })
   is_active: boolean;
 
-  @BelongsToMany(()=>User, ()=>UserRoles)
+  @BelongsToMany(()=>User, ()=>UserBooks)
   users: User[]
 
 }

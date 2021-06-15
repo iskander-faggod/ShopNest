@@ -1,7 +1,7 @@
 import { BelongsToMany, Column, DataType, Model, Table } from "sequelize-typescript";
 import { ApiProperty } from "@nestjs/swagger";
-import { Role } from "../roles/roles.model";
-import { UserRoles } from "../roles/user-roles.model";
+import { Book } from "../roles/books.model";
+import { UserBooks } from "../roles/user-books.model";
 
 //Generic, to create object of class
 interface UserCreationAttrs {
@@ -29,7 +29,7 @@ export class User extends Model<User, UserCreationAttrs> {
   @Column({ type: DataType.BOOLEAN,  allowNull: false })
   with_card: boolean;
 
-  @BelongsToMany(()=>Role, ()=>UserRoles)
-  roles: Role[]
+  @BelongsToMany(()=>Book, ()=>UserBooks)
+  books: Book[]
 
 }

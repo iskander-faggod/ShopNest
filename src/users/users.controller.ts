@@ -5,6 +5,7 @@ import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { User } from "./users.model";
 import { EditUserDto } from "./dto/edit-user.dto";
 import { RemoveUserDto } from "./dto/remove-user.dto";
+import { AddBookDto } from "./dto/add-book.dto";
 
 @ApiTags('Пользователи')
 @Controller("users")
@@ -45,5 +46,12 @@ export class UsersController {
   @Get(':/id')
   getUser(@Param("author") id: number) {
     return this.usersService.getUser(id);
+  }
+
+  @ApiOperation({ summary: "Добавление книги в карту пользователя" })
+  @ApiResponse({ status: 200, type: [User] })
+  @Get('/book')
+  addBook(@Body() userDto: AddBookDto) {
+    return this.usersService.addBook(userDto);
   }
 }

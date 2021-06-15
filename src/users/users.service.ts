@@ -2,21 +2,23 @@ import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
 import { User } from "./users.model";
 import { CreateUserDto } from "./dto/create-user.dto";
-import { RolesService } from "../roles/roles.service";
+import { BooksService } from "../roles/books.service";
 import { EditUserDto } from "./dto/edit-user.dto";
 import { RemoveUserDto } from "./dto/remove-user.dto";
+import { AddBookDto } from "./dto/add-book.dto";
 
 
 @Injectable()
 export class UsersService {
   constructor(@InjectModel(User) private userRepository: typeof User,
-              private roleService: RolesService) {
+              private bookService: BooksService) {
   }
 
   async createUser(dto: CreateUserDto) {
     const user = await this.userRepository.create(dto);
-    // const role = await this.roleService.getRoleByValue('USER')
-    // await user.$set('roles', [role.id])
+    const book = await this.bookService.getBookByValue("Эрих Мария Ремарк", "Три товарища");
+    await user.$set("books", [book.id]);
+    user.books = [book];
     return user;
   }
 
@@ -34,10 +36,19 @@ export class UsersService {
     return await this.userRepository.findByPk(id);
   }
 
-  async returnBook(author:string, title:string){
-    const book = await this.roleService.getRoleByValue(author, title);
-
-
-
+  async addBook(dto: AddBookDto) {
+    const user = await this.userRepository.findByPk(dto.userId);
+    const book = await this.bookService.getBookByValue(dto.author, dto.title);
+    if (user && book) {
+      await user.$add("book", book.id);
+      return dto;
+    }
+    // throw new Ht
   }
+
+
+  async returnBook(author: string, title: string) {
+    const book = await this.bookService.getBookByValue(author, title);
+  }
+
 }
